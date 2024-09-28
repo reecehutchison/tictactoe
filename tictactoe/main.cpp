@@ -23,34 +23,48 @@ void print_token(int x, int y, vector<vector<int>> board);
 string get_input(int turn);
 void update_board(vector<vector<int>>& board, string location, int turn);
 void print_header();
+bool valid_location(string location);
+bool check_valid(vector<vector<int>> board, string location);
+// to do
+int check_win(vector<vector<int>> board);
 
 
 int main(int argc, const char * argv[]) {
-  
+    
     vector<vector<int>> board{ {0, 0, 0},
                                {0, 0, 0},
                                {0, 0, 0}};
+    
     int turn=1;
+    cout << endl << endl;
     
     while(turn<10) {
-                
+        
         string location;
         
         print_header();
         print_board(board);
         location=get_input(turn);
-        update_board(board, location, turn);
-
-        // learn how to clear the screen
-        // also learn how to prevent illegal moves
+        if(valid_location(location)) {
+            
+            if(check_valid(board, location)) {
+                
+                update_board(board, location, turn);
+                ++turn;
+                cout << endl << endl;
+                
+            } else
+                cout << "Enter a valid move!" << endl << endl;
+        } else
+            cout << "Enter a valid move!" << endl << endl;
         
-        ++turn;
-        
+        // check_win;
     }
-
-    cout << endl << endl << endl;
     
+    cout << endl << endl << endl;
+        
     return 0;
+    
 }
 
 
@@ -194,4 +208,73 @@ void update_board(vector<vector<int>>& board, string location, int turn) {
 
 void print_header() {
     cout << "     --- Tic Tac Toe ---" << endl << endl;
+}
+
+bool valid_location(string location) {
+    if(location=="a1")
+        return true;
+    else if(location=="a2")
+        return true;
+    else if(location=="a3")
+        return true;
+    else if(location=="b1")
+        return true;
+    else if(location=="b2")
+        return true;
+    else if(location=="b3")
+        return true;
+    else if(location=="c1")
+        return true;
+    else if(location=="c2")
+        return true;
+    else if(location=="c3")
+        return true;
+    else
+        return false;
+}
+
+bool check_valid(vector<vector<int>> board, string location) {
+    int x, y;
+    if(location=="a1") {
+        x=0;
+        y=0;
+    }
+    else if(location=="a2") {
+        x=0;
+        y=1;
+    }
+    else if(location=="a3") {
+        x=0;
+        y=2;
+    }
+    else if(location=="b1") {
+        x=1;
+        y=0;
+    }
+    else if(location=="b2") {
+        x=1;
+        y=1;
+    }
+    else if(location=="b3") {
+        x=1;
+        y=2;
+    }
+    else if(location=="c1") {
+        x=0;
+        y=2;
+    }
+    else if(location=="c2") {
+        x=1;
+        y=2;
+    }
+    else {
+        x=2;
+        y=2;
+    }
+    if(board[x][y]==1)
+        return false;
+    else if(board[x][y]==-1)
+        return false;
+    else
+        return true;
 }
