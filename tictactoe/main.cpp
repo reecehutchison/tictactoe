@@ -18,6 +18,7 @@ void print_x();
 void print_empty();
 void print_space(char ch);
 void print_nums();
+void print_token(int x, int y, vector<vector<int>> board);
 
 int main(int argc, const char * argv[]) {
   
@@ -25,13 +26,13 @@ int main(int argc, const char * argv[]) {
     
     // 1 for x
     // -1 for o
-    vector<vector<int>> board{ {0,1,-1},
-                               {-1,1,-1},
-                               {1,0,-1}};
+    vector<vector<int>> board{ {0, 0, 0},
+                               {0, 0, 0},
+                               {0, 0, 0}};
 
     print_board(board);
     
-    cout << endl << endl;
+    cout << endl << endl << endl;
     
     return 0;
 }
@@ -43,30 +44,15 @@ void print_board(vector<vector<int>> board) {
     
     // (0,0)
     print_space('a');
-    if(board[0][0]==1)
-        print_x();
-    else if(board[0][0]==-1)
-        print_o();
-    else
-        print_empty();
+    print_token(0, 0, board);
     print_pipe();
     
     // (0,1)
-    if(board[0][1]==1)
-        print_x();
-    else if(board[0][1]==-1)
-        print_o();
-    else
-        print_empty();
+    print_token(0, 1, board);
     print_pipe();
     
     // (0,2)
-    if(board[0][2]==1)
-        print_x();
-    else if(board[0][2]==-1)
-        print_o();
-    else
-        print_empty();
+    print_token(0, 2, board);
     
     cout << endl;
     print_space(' ');
@@ -74,30 +60,15 @@ void print_board(vector<vector<int>> board) {
     
     // (1,0)
     print_space('b');
-    if(board[1][0]==1)
-        print_x();
-    else if(board[1][0]==-1)
-        print_o();
-    else
-        print_empty();
+    print_token(1, 0, board);
     print_pipe();
     
     // (1,1)
-    if(board[1][1]==1)
-        print_x();
-    else if(board[1][1]==-1)
-        print_o();
-    else
-        print_empty();
+    print_token(1, 1, board);
     print_pipe();
     
     // (1,2)
-    if(board[1][2]==1)
-        print_x();
-    else if(board[1][2]==-1)
-        print_o();
-    else
-        print_empty();
+    print_token(1, 2, board);
     
     cout << endl;
     print_space(' ');
@@ -105,30 +76,16 @@ void print_board(vector<vector<int>> board) {
     
     // (2,0)
     print_space('c');
-    if(board[2][0]==1)
-        print_x();
-    else if(board[2][0]==-1)
-        print_o();
-    else
-        print_empty();
+    print_token(2, 0, board);
     print_pipe();
     
     // (2,1)
-    if(board[2][1]==1)
-        print_x();
-    else if(board[2][1]==-1)
-        print_o();
-    else
-        print_empty();
+    print_token(2, 1, board);
     print_pipe();
     
     // (2,2)
-    if(board[2][2]==1)
-        print_x();
-    else if(board[2][2]==-1)
-        print_o();
-    else
-        print_empty();
+    print_token(2, 2, board);
+    
 }
 
 void print_line() {
@@ -160,6 +117,15 @@ void print_space(char ch) {
 void print_nums() {
     print_space(' ');
     cout << " 1   2   3" << endl << endl;
+}
+
+void print_token(int x, int y, vector<vector<int>> board) {
+    if(board[x][y]==1)
+        print_x();
+    else if(board[x][y]==-1)
+        print_o();
+    else
+        print_empty();
 }
 
 
