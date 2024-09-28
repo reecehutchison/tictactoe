@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -19,19 +20,34 @@ void print_empty();
 void print_space(char ch);
 void print_nums();
 void print_token(int x, int y, vector<vector<int>> board);
+string get_input(int turn);
+void update_board(vector<vector<int>>& board, string location, int turn);
+void print_header();
+
 
 int main(int argc, const char * argv[]) {
   
-    cout << "     --- Tic Tac Toe ---" << endl << endl;
-    
-    // 1 for x
-    // -1 for o
     vector<vector<int>> board{ {0, 0, 0},
                                {0, 0, 0},
                                {0, 0, 0}};
-
-    print_board(board);
+    int turn=1;
     
+    while(turn<10) {
+                
+        string location;
+        
+        print_header();
+        print_board(board);
+        location=get_input(turn);
+        update_board(board, location, turn);
+
+        // learn how to clear the screen
+        // also learn how to prevent illegal moves
+        
+        ++turn;
+        
+    }
+
     cout << endl << endl << endl;
     
     return 0;
@@ -85,6 +101,7 @@ void print_board(vector<vector<int>> board) {
     
     // (2,2)
     print_token(2, 2, board);
+    cout << endl << endl;
     
 }
 
@@ -128,18 +145,53 @@ void print_token(int x, int y, vector<vector<int>> board) {
         print_empty();
 }
 
+string get_input(int turn) {
+    int player;
+    string location;
+    
+    if(turn%2==0)
+        player=2;
+    else
+        player=1;
+    
+    cout << "Player " << player << " turn : ";
+    cin >> location;
+    cout << endl;
+    
+    return location;
+}
 
-/*
- this is what the board should look like:
- 
-     1   2   3
- 
-a    o |   | o
-    ---|---|---
-b      | x |
-    ---|---|---
-c      |   | x
- 
- then it will prompt the player to enter a place
- 
- */
+void update_board(vector<vector<int>>& board, string location, int turn) {
+    int player;
+    int num;
+    if(turn%2==0)
+        player=2;
+    else
+        player=1;
+    if(player==1)
+        num=1;
+    else
+        num=-1;
+    if(location=="a1")
+        board[0][0]=num;
+    else if(location=="a2")
+        board[0][1]=num;
+    else if(location=="a3")
+        board[0][2]=num;
+    else if(location=="b1")
+        board[1][0]=num;
+    else if(location=="b2")
+        board[1][1]=num;
+    else if(location=="b3")
+        board[1][2]=num;
+    else if(location=="c1")
+        board[2][0]=num;
+    else if(location=="c2")
+        board[2][1]=num;
+    else if(location=="c3")
+        board[2][2]=num;
+}
+
+void print_header() {
+    cout << "     --- Tic Tac Toe ---" << endl << endl;
+}
